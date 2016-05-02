@@ -9,25 +9,66 @@ import React, {
   Component,
   StyleSheet,
   Text,
-  View
+  View,
+  TouchableOpacity,
+  NativeModules,
+  NativeAppEventEmitter
 } from 'react-native';
 
+import BGNativeModuleExample from 'react-native-nativemodule-example';
+
 class TestProject extends Component {
+  componentDidMount() {
+    BGNativeModuleExample.testPrint("Jack", {
+      height: '1.78m',
+      weight: '7kg'
+    });
+
+    BGNativeModuleExample.getNativeClass(name => {
+      console.log("nativeClass: ", name);
+    });
+
+    BGNativeModuleExample.testRespondMethod("dealloc")
+    .then(result => {
+      console.log("result is ", result);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+
+    //测试Promiss
+    // this.testRespond();
+
+    //测试常量的值
+    console.log("BGModuleName value is ", BGNativeModuleExample.BGModuleName);
+
+    //接收事件
+    NativeAppEventEmitter.addListener(BGNativeModuleExample.TestEventName, info => {
+      console.log(info);
+    });
+  }
+
+  async testRespond() {
+    try {
+      var result = BGNativeModuleExample.testRespondMethod("hell");
+      if(result) {
+        console.log("respond this method");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
   render() {
     return (
-      <View style={styles.container}>
+      <TouchableOpacity style={styles.container} onPress={this.onPress.bind()}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Press
         </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+      </TouchableOpacity>
     );
+  }
+
+  onPress() {
   }
 }
 
