@@ -1,5 +1,5 @@
 #react-native-BGNativeModuleExample
-这是博客的Example代码
+这是博客[ReactNative之原生模块开发并发布——iOS篇](http://www.liuchungui.com/blog/2016/05/02/reactnativezhi-yuan-sheng-mo-kuai-kai-fa-bing-fa-bu-iospian/)的Example代码
 
 ##安装
 ```
@@ -14,4 +14,10 @@ BGNativeModuleExample.testPrint("Jack", {
     height: '1.78m',
     weight: '7kg'
 });
+```
+
+
+##Example
+```
+npm install
 ```
