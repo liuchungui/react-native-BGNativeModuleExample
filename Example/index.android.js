@@ -8,10 +8,39 @@ import React, {
   Component,
   StyleSheet,
   Text,
-  View
+  View,
+  DeviceEventEmitter,
 } from 'react-native';
 
+import BGNativeModuleExample from 'react-native-nativemodule-example';
+
 class TestProject extends Component {
+  componentDidMount() {
+    BGNativeModuleExample.testPrint("Jack", {
+      height: '1.78m',
+      weight: '7kg'
+    });
+
+    BGNativeModuleExample.getNativeClass(name => {
+      console.log("nativeClass: ", name);
+    });
+
+    BGNativeModuleExample.testPromises(true)
+    .then(result => {
+      console.log("result is ", result);
+    })
+    .catch(result => {
+      console.log("result = ", result);
+    });
+
+    //打印常量的值
+    console.log("BGModuleName const value = ", BGNativeModuleExample.BGModuleName);
+
+    //接收事件
+    DeviceEventEmitter.addListener(BGNativeModuleExample.TestEventName, info => {
+      console.log(info);
+    });
+  }
   render() {
     return (
       <View style={styles.container}>
